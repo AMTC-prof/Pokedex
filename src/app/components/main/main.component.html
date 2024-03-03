@@ -1,9 +1,9 @@
 <main class="grid h-full">
-    <app-pokemon-img-view class="pl-20" [pokemonImg]="selectedPokemonImg" [pokemonBg]="selectedPokemonBg"></app-pokemon-img-view>
+    <app-pokemon-img-view [pokemonImg]="selectedPokemonImg" [pokemonBg]="selectedPokemonBg"></app-pokemon-img-view>
 
-    <div id="pokemonList" #pokeList class="flex flex-col gap-y-1" (scroll)="onScroll($event)">
+    <div id="pokemonList" #pokeList class="flex flex-col gap-y-1 h-[300px] sm:h-[450px] lg:h-[650px]" (scroll)="onScroll($event)">
         @for (pokemonData of pokemonList; track $index) {
-            <app-pokemon-list-item [data]="pokemonData" (onSelected)="onPokemonSelected($event)"></app-pokemon-list-item>
+            <app-pokemon-list-item [data]="pokemonData" [selected]="pokemonData.name === selectedPokemon?.name"(onSelected)="onPokemonSelected($event)"></app-pokemon-list-item>
         }@empty {
             <p>No pokemons found</p>
         } @if (loading) {

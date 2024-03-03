@@ -1,7 +1,7 @@
 main {
     height: calc(100vh - 100px);
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     justify-content: center; 
     background: repeating-linear-gradient(
@@ -30,8 +30,10 @@ main {
     );
 
     #pokemonList{
-        height: calc(100vh - 140px);
+        //height: calc(100vh - 140px);
         overflow-y: scroll;
+        overflow-x: hidden;
     }
+    
     
 }

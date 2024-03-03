@@ -2,17 +2,19 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PokemonDataResult } from '../../interfaces/pokeApi';
 import { TitleCasePipe } from '@angular/common';
 import { PokemonService } from '../../services/pokemon.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pokemon-list-item',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './pokemon-list-item.component.html',
   styleUrl: './pokemon-list-item.component.scss'
 })
 export class PokemonListItemComponent implements OnInit{
 
   @Input() data?: PokemonDataResult;
+  @Input() selected: boolean = false;
   @Output() onSelected = new EventEmitter<string>();
 
   id: string = ''; //Número del pokemon en la pokedex. No viene directamente como dato del EP sino que hay que extraerlo de la url

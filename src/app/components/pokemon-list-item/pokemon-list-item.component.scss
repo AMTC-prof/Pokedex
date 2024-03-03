@@ -1,7 +1,7 @@
 #container {
     position: relative;
     isolation: isolate;
-
+    
     &.selected:before {
         position: absolute;
         content: "";
@@ -13,3 +13,4 @@
         border-radius: 5px;
     }
 }
+
