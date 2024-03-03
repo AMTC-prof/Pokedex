@@ -13,7 +13,6 @@ export class PokemonImgViewComponent {
   type: string = 'white';
   backgroundType: string = `../../../assets/img/type-backgrounds/background-${this.type}.png`;
   
-
   constructor(){
 
   }

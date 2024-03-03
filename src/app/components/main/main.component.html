@@ -1,4 +1,10 @@
 <main class="grid h-full">
     <app-pokemon-img-view class="pl-20"></app-pokemon-img-view>
-    <app-pokemon-list></app-pokemon-list>
+    <app-pokemon-list id="pokemonList" [pokemonList]="pokemonList" (scroll)="onScroll($event)">
+        @if (loading) {
+            <img src="../../../assets/Icons/spinners/spinner-dot-fade.svg" class="size-6 self-center" alt="">
+        }
+    </app-pokemon-list>
+   
+    
 </main>

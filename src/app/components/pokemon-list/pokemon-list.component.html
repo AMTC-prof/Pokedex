@@ -1,6 +1,8 @@
-<div>
-    <app-pokemon-list-item></app-pokemon-list-item>
-    <app-pokemon-list-item></app-pokemon-list-item>
-    <app-pokemon-list-item></app-pokemon-list-item>
-    
-</div>
+<section id="pokemonList" #pokeList class="flex flex-col gap-y-1">
+    @for (pokemonData of pokemonList; track $index) {
+        <app-pokemon-list-item [data]="pokemonData"></app-pokemon-list-item>
+    }@empty {
+        <p>No pokemons found</p>
+    }
+    <ng-content></ng-content>
+</section>

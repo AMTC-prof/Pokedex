@@ -1,0 +1,15 @@
+#container {
+    position: relative;
+    isolation: isolate;
+
+    &.selected:before {
+        position: absolute;
+        content: "";
+        width: calc(100% + 8px);
+        height: 120%;
+        left: -5px;
+        background-color: #da4443;
+        z-index: -1;
+        border-radius: 5px;
+    }
+}
