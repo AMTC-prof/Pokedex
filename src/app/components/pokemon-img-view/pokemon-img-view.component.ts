@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-pokemon-img-view',
@@ -10,8 +10,8 @@ import { Component } from '@angular/core';
 
 export class PokemonImgViewComponent {
 
-  type: string = 'white';
-  backgroundType: string = `../../../assets/img/type-backgrounds/background-${this.type}.png`;
+  @Input() pokemonImg: string | undefined = '';
+  @Input() pokemonBg: string | undefined = '';
   
   constructor(){
 

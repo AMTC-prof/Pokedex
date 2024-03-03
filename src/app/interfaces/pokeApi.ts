@@ -1,5 +1,4 @@
-//Datos del EP
-//https://pokeapi.co/api/v2/pokemon?limit=20&offset=0
+//#region Datos del EP https://pokeapi.co/api/v2/pokemon?limit=20&offset=0
 
 export interface PokemonData{
     count: number,
@@ -12,31 +11,33 @@ export interface PokemonDataResult {
     name: string;
     url:  string;
 }
+//#endregion
 
 
-// Datos del EP https://pokeapi.co/api/v2/pokemon/1
+//#region Datos del EP https://pokeapi.co/api/v2/pokemon/1
+
 
 export interface PokemonDetailsData {
-    abilities:                Ability[];
-    base_experience:          number;
-    cries:                    Cries;
-    forms:                    Species[];
-    game_indices:             GameIndex[];
-    height:                   number;
-    held_items:               any[];
-    id:                       number;
-    is_default:               boolean;
+    id: number;
+    order: number;
+    name: string;
+    weight: number;
+    height: number;
+    base_experience: number;
+    is_default: boolean;
+    types: Type[];
+    stats: Stat[];
+    abilities: Ability[];
+    cries: Cries;
+    forms: Species[];
+    game_indices: GameIndex[];
+    held_items: any[];
     location_area_encounters: string;
-    moves:                    Move[];
-    name:                     string;
-    order:                    number;
-    past_abilities:           any[];
-    past_types:               any[];
-    species:                  Species;
-    sprites:                  Sprites;
-    stats:                    Stat[];
-    types:                    Type[];
-    weight:                   number;
+    moves: Move[];
+    past_abilities: any[];
+    past_types: any[];
+    species: Species;
+    sprites: Sprites;
 }
 
 export interface Ability {
@@ -194,3 +195,5 @@ export interface Type {
     slot: number;
     type: Species;
 }
+
+//#endregion

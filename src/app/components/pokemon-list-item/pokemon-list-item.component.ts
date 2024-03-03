@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { PokemonDataResult } from '../../../interfaces/pokeApi';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PokemonDataResult } from '../../interfaces/pokeApi';
 import { TitleCasePipe } from '@angular/common';
-import { PokemonService } from '../../../services/pokemon.service';
+import { PokemonService } from '../../services/pokemon.service';
 
 @Component({
   selector: 'app-pokemon-list-item',
@@ -13,6 +13,7 @@ import { PokemonService } from '../../../services/pokemon.service';
 export class PokemonListItemComponent implements OnInit{
 
   @Input() data?: PokemonDataResult;
+  @Output() onSelected = new EventEmitter<string>();
 
   id: string = ''; //Número del pokemon en la pokedex. No viene directamente como dato del EP sino que hay que extraerlo de la url
   detailsData : any = []; //Datos del pokemon
