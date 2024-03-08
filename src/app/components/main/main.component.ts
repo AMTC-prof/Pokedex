@@ -4,24 +4,27 @@ import { PokemonListItemComponent } from "../pokemon-list-item/pokemon-list-item
 import { PokemonService } from '../../services/pokemon.service';
 import { PokemonDataResult, PokemonDetailsData } from '../../interfaces/pokeApi';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { PokemonDetailsComponent } from "../pokemon-details/pokemon-details.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-main',
     standalone: true,
     templateUrl: './main.component.html',
     styleUrl: './main.component.scss',
-    imports: [PokemonImgViewComponent, PokemonListItemComponent, MatProgressSpinnerModule]
+    imports: [PokemonImgViewComponent, PokemonListItemComponent, MatProgressSpinnerModule, PokemonDetailsComponent, CommonModule]
 })
 export class MainComponent implements OnInit{
 
     @ViewChild('pokeList') pokeListElement!: ElementRef;;
 
     pokemonList: PokemonDataResult[] = [];
-    selectedPokemon: PokemonDetailsData | null = null;
+    selectedPokemon?: PokemonDetailsData;
     selectedPokemonImg: string = '';
     selectedPokemonBg: string = '../../../assets/img/type-backgrounds/background-black.png';
     selectedPokemonTypes: string[] = [];
     page:number = 1;
+    viewDetails:boolean = false;
     loading:boolean = false;
 
     constructor(
@@ -43,11 +46,15 @@ export class MainComponent implements OnInit{
     }
 
     async onPokemonSelected(id: string){
+        if(this.selectedPokemon && this.selectedPokemon.id.toString() === id){
+            this.switchViewDetails();
+            return;
+        }
         this.selectedPokemon = await this.pokemonService.getById(id);
         this.selectedPokemonImg = this.selectedPokemon.sprites.front_default;
         this.getPokemonTypes();
         this.getPokemonBackground(this.selectedPokemon.types[0].type.name)
-               
+                       
     }
 
     getPokemonBackground(type: string){
@@ -67,7 +74,6 @@ export class MainComponent implements OnInit{
     }
 
 
-
     /**
      * Evento que detecta cuando se ha llegado al final del scroll y hace otra llamda a la api para seguir rellenando la lista de pokemons
      * @param e 
@@ -82,6 +88,10 @@ export class MainComponent implements OnInit{
         if (Math.round(clientHeight + scrollTop) >= scrollHeight) {
             this.getPokemonList();
         }
+    }
+
+    switchViewDetails(){
+        if(this.selectedPokemon) this.viewDetails = !this.viewDetails;
     }
     
    

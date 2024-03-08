@@ -1,0 +1,50 @@
+<div id="backdrop" [ngClass]="{hidden: !viewDetails}" (click)="switchViewDetails.emit()"></div>
+  <div id="container">
+    <div
+      id="pokemonDetails"
+      class="h-[400px] sm:h-[550px] lg:h-[750px] bg-yellow-100"
+    >
+      <div class="area">
+        <app-pokemon-list-item [fullData]="pokemonData" [selected]="true"></app-pokemon-list-item>
+      </div>
+      <div class="area">
+        <p>
+          <span
+            class="statTag text-xs sm:text-sm lg:text-2xl w-24 sm:w-28 lg:w-36"
+            >Tipo</span
+          >
+          @for (type of pokemonData?.types; track $index) {
+          <span
+            class="pokeType text-xs sm:text-sm lg:text-2xl w-24 sm:w-28 lg:w-36"
+            [style.background-color]="pokemonBgColor[$index]"
+            >{{ type.type.name }}</span
+          >
+          }
+        </p>
+        <p class="text-xs sm:text-sm lg:text-2xl">
+          <span class="statTag w-24 sm:w-28 lg:w-36">Altura</span>
+          {{ pokemonData?.height }}'
+        </p>
+        <p class="text-xs sm:text-sm lg:text-2xl">
+          <span class="statTag w-24 sm:w-28 lg:w-36">Peso</span>
+          {{ pokemonData?.weight }} lbs.
+        </p>
+      </div>
+      <div class="area">
+        <div id="descriptionContainer" class="">
+          <div></div>
+          <p class="text-xs sm:text-sm lg:text-2xl">{{ pokemonDescription }}</p>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+    <button (click)="switchViewDetails.emit()">
+      <img
+        src="../../../assets/img/flecha.png"
+        [ngClass]="{ viewDetails: viewDetails }"
+        alt=""
+      />
+    </button>
+  </div>
+

@@ -12,5 +12,14 @@
         z-index: -1;
         border-radius: 5px;
     }
+
+    #card{
+        &.selected{
+            background-color: #f49545;
+            -webkit-box-shadow: 0px 0px 7px 4px #fceab8;
+            -moz-box-shadow: 0px 0px 7px 4px #fceab8;
+            box-shadow: inset 0px 0px 7px 4px #fceab8;
+        }
+    }
 }
 
