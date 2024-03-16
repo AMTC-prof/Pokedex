@@ -1,9 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-pokemon-img-view',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './pokemon-img-view.component.html',
   styleUrl: './pokemon-img-view.component.scss'
 })

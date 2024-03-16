@@ -21,5 +21,9 @@
             box-shadow: inset 0px 0px 7px 4px #fceab8;
         }
     }
+
+    iframe {
+        pointer-events: none;
+    }
 }
 

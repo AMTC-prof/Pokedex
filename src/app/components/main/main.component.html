@@ -1,7 +1,12 @@
+<div class="bg-container"></div>
+
 <main class="grid relative">
-    <app-pokemon-details [pokemonData]="selectedPokemon" (switchViewDetails)="switchViewDetails()"
+
+    @if (selectedPokemon) {
+        <app-pokemon-details [pokemonData]="selectedPokemon" (switchViewDetails)="switchViewDetails()"
         [viewDetails]="viewDetails" [ngClass]="{viewDetails: viewDetails}">
-    </app-pokemon-details>
+        </app-pokemon-details>
+    }    
 
     <app-pokemon-img-view [pokemonImg]="selectedPokemonImg" [pokemonBg]="selectedPokemonBg" [ngClass]="{viewDetails: viewDetails}"></app-pokemon-img-view>
 
