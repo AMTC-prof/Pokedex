@@ -3,7 +3,7 @@ import { PokemonDetailsData } from '../../interfaces/pokeApi';
 import { PokemonImgViewComponent } from '../pokemon-img-view/pokemon-img-view.component';
 import { PokemonListItemComponent } from '../pokemon-list-item/pokemon-list-item.component';
 import { PokemonService } from '../../services/pokemon.service';
-import { PokemonTypeBgColor } from '../Enums/PokemonEnums';
+import { PokemonTypeBgColor } from '../../Enums/PokemonEnums';
 import { CommonModule } from '@angular/common';
 
 @Component({

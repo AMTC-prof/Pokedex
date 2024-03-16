@@ -14,7 +14,7 @@ export interface PokemonDataResult {
 //#endregion
 
 
-//#region Datos del EP https://pokeapi.co/api/v2/pokemon/1
+//#region Datos del EP https://pokeapi.co/api/v2/pokemon/{id}
 
 
 export interface PokemonDetailsData {
