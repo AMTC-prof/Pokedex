@@ -12,13 +12,13 @@
 
     <div id="pokemonList" #pokeList class="flex flex-col gap-y-1 h-[300px] sm:h-[450px] lg:h-[650px]"
         (scroll)="onScroll($event)">
+
         @for (pokemonData of pokemonList; track $index) {
-        <app-pokemon-list-item [data]="pokemonData" [selected]="pokemonData.name === selectedPokemon?.name"
-            (onSelected)="onPokemonSelected($event)"></app-pokemon-list-item>
+            <app-pokemon-list-item [data]="pokemonData" [selected]="pokemonData.name === selectedPokemon?.name" (onSelected)="onPokemonSelected($event)"></app-pokemon-list-item>
         }@empty {
-        <p>No pokemons found</p>
+            <p>No pokemons found</p>
         } @if (loading) {
-        <img src="../../../assets/Icons/spinners/spinner-dot-fade.svg" class="size-6 self-center" alt="" />
+            <img src="../../../assets/Icons/spinners/spinner-dot-fade.svg" class="size-6 self-center" alt="" />
         }
     </div>
 </main>

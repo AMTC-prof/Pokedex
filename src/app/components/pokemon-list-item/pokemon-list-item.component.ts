@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, AfterViewInit, Input, OnInit, Output } from '@angular/core';
 import {
   PokemonDataResult,
   PokemonDetailsData,
@@ -23,11 +23,18 @@ export class PokemonListItemComponent implements OnInit {
 
   id: string = ''; //Número del pokemon en la pokedex. No viene directamente como dato del EP sino que hay que extraerlo de la url
   detailsData: any = []; //Datos del pokemon
+  clickSound: HTMLAudioElement = new Audio("../../../assets/Sounds/click.mp3");
 
   constructor(private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
     this.getPokemonId();
+    
+  }
+
+  ngAfterViewInit(){
+    this.clickSound.load(); 
+    this.clickSound.volume = 0.2;
   }
 
   ngOnChanges() {
@@ -63,5 +70,18 @@ export class PokemonListItemComponent implements OnInit {
     this.pokemonService.getById(this.id).then((res) => {
       this.detailsData = res;
     });
+  }
+
+  loadClickSound() {
+    this.clickSound = new Audio();
+    this.clickSound.src = "../../../assets/Sounds/click.mp3"; 
+    this.clickSound.load(); 
+    this.clickSound.volume = 0.2; 
+  }
+
+  playClickSound() {
+       
+    this.clickSound.play(); 
+    
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PokemonImgViewComponent } from '../pokemon-img-view/pokemon-img-view.component';
 import { PokemonListItemComponent } from '../pokemon-list-item/pokemon-list-item.component';
 import { PokemonService } from '../../services/pokemon.service';
@@ -9,7 +9,6 @@ import {
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
 import { CommonModule } from '@angular/common';
-
 @Component({
   selector: 'app-main',
   standalone: true,
@@ -21,11 +20,12 @@ import { CommonModule } from '@angular/common';
     MatProgressSpinnerModule,
     PokemonDetailsComponent,
     CommonModule,
+    
   ],
 })
 export class MainComponent implements OnInit {
   @ViewChild('pokeList') pokeListElement!: ElementRef;
-
+  
   pokemonList: PokemonDataResult[] = [];
   selectedPokemon?: PokemonDetailsData;
   selectedPokemonImg: string = '';
@@ -40,7 +40,11 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPokemonList();
+       
+    
   }
+
+  ngAfterViewInit(): void {  }
 
   /**
    * Retrieves a list of Pokemon and appends it to the existing list.
@@ -57,6 +61,7 @@ export class MainComponent implements OnInit {
     if(this.selectedPokemon === undefined && this.pokemonList.length > 0) {
       this.onPokemonSelected(this.pokemonList[0].url.split('/')[6]);
     }
+    
   }
 
   /**
@@ -67,6 +72,7 @@ export class MainComponent implements OnInit {
    * @param id The ID of the selected Pokemon.
    */
   async onPokemonSelected(id: string) {
+    
     if (this.selectedPokemon && this.selectedPokemon.id.toString() === id) {
       this.switchViewDetails();
       return;
@@ -106,7 +112,7 @@ export class MainComponent implements OnInit {
     if (this.loading) {
       return;
     }
-
+    this.playScrollSound();
     const { clientHeight, scrollTop, scrollHeight } =
       this.pokeListElement.nativeElement;
       if (Math.round(clientHeight + scrollTop) >= scrollHeight - 100) {
@@ -114,6 +120,29 @@ export class MainComponent implements OnInit {
      }
   }
 
+  
+  /**
+   * Plays a sound effect when scrolling.
+   */
+  playScrollSound() {
+
+    let scrollAudio = new Audio();
+    scrollAudio.src = "../../../assets/Sounds/scroll-sound.wav";  
+    scrollAudio.volume = 0.05;
+    scrollAudio.load();
+    scrollAudio.play();
+
+  }
+
+  playOpeningSong() {
+    let openingSong = new Audio();
+    openingSong.src = "../../../assets/Sounds/pokemon-opening.mp3"; 
+    openingSong.load(); 
+    openingSong.play(); 
+    openingSong.volume = 0.1; 
+    
+  }
+   
   /**
    * Toggles the view details flag.
    */
