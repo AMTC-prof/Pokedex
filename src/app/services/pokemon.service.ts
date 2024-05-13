@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PokemonData, PokemonDataResult, PokemonDetailsData } from '../interfaces/pokeApi';
+import { PokemonData, PokemonDataResult, PokemonDataWithId, PokemonDetailsData } from '../interfaces/pokeApi';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,27 +9,37 @@ export class PokemonService {
   
   currentLang = 'es';
 
-  constructor() { }
-
+  constructor() {}
+  
   /**
    * Retrieves a list of Pokemon data based on the specified page number and size.
    * @param page - The page number to retrieve.
    * @param size - The number of Pokemon data to retrieve per page. Default value is 40.
    * @returns A promise that resolves to an array of PokemonDataResult objects.
    */
-  async getByPage(page: number, size:number = 40 ):Promise<PokemonDataResult[]>{
+  async getByPage(page: number, size:number = 40 ):Promise<PokemonDataWithId[]>{
     
     if(page > 26) return [];
 
     const offset = size*(page-1);
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${size}&offset=${offset}`);
-    const resJson = await res.json();
+    const resJson : { results: PokemonDataResult[]} = await res.json();
 
-    if(resJson.results.length > 0){ 
-      return resJson.results; 
-    } 
-    return [];
-  }
+      if(resJson.results.length > 0){ 
+
+        return resJson.results.map((pokemon, index) => {
+          const pokemonData: PokemonDataWithId = {
+            pokemon: pokemon,
+            id: pokemon.url.split('/')[6]
+          
+          };
+          return pokemonData;
+        }); 
+      } 
+
+      return [];
+     
+    }
 
   /**
    * Retrieves the details of a Pokemon based on the specified ID.

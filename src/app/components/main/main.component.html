@@ -14,7 +14,7 @@
         (scroll)="onScroll($event)">
 
         @for (pokemonData of pokemonList; track $index) {
-            <app-pokemon-list-item [data]="pokemonData" [selected]="pokemonData.name === selectedPokemon?.name" (onSelected)="onPokemonSelected($event)"></app-pokemon-list-item>
+            <app-pokemon-list-item [data]="pokemonData.pokemon" [selected]="pokemonData.pokemon.name === selectedPokemon?.name" (onSelected)="onPokemonSelected($event)"></app-pokemon-list-item>
         }@empty {
             <p>No pokemons found</p>
         } @if (loading) {

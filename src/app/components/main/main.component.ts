@@ -4,6 +4,7 @@ import { PokemonListItemComponent } from '../pokemon-list-item/pokemon-list-item
 import { PokemonService } from '../../services/pokemon.service';
 import {
   PokemonDataResult,
+  PokemonDataWithId,
   PokemonDetailsData,
 } from '../../interfaces/pokeApi';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -26,21 +27,22 @@ import { CommonModule } from '@angular/common';
 export class MainComponent implements OnInit {
   @ViewChild('pokeList') pokeListElement!: ElementRef;
   
-  pokemonList: PokemonDataResult[] = [];
+  pokemonList: PokemonDataWithId[] = [];
   selectedPokemon?: PokemonDetailsData;
   selectedPokemonImg: string = '';
   selectedPokemonBg: string =
     '../../../assets/img/Backgrounds/default-pokeball.png';
   selectedPokemonTypes: string[] = [];
-  page: number = 1;
+  page: number = 0;
   viewDetails: boolean = false;
   loading: boolean = false;
 
   constructor(private pokemonService: PokemonService) {}
 
-  ngOnInit(): void {
-    this.getPokemonList();
-       
+ async ngOnInit(): Promise<void> {
+    
+   await this.getPokemonList();      
+    
     
   }
 
@@ -52,16 +54,24 @@ export class MainComponent implements OnInit {
    */
   async getPokemonList() {
     this.loading = true;
+    this.page++;
+
     this.pokemonList = [
       ...this.pokemonList,
       ...(await this.pokemonService.getByPage(this.page)),
-    ];
-    this.page++;
-    this.loading = false;
-    if(this.selectedPokemon === undefined && this.pokemonList.length > 0) {
-      this.onPokemonSelected(this.pokemonList[0].url.split('/')[6]);
-    }
+    ];    
     
+    this.loading = false;
+   
+    this.selectFirstPokemon();
+  }
+
+  private async selectFirstPokemon() {
+    
+    if(this.selectedPokemon === undefined && this.pokemonList.length > 0) {
+      await this.onPokemonSelected(this.pokemonList[0].id);
+      
+    }
   }
 
   /**

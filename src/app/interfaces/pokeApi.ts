@@ -11,6 +11,11 @@ export interface PokemonDataResult {
     name: string;
     url:  string;
 }
+
+export interface PokemonDataWithId{
+    pokemon: PokemonDataResult;
+    id: string;
+}
 //#endregion
 
 
