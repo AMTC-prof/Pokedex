@@ -21,57 +21,59 @@ export class PokemonListItemComponent implements OnInit {
   @Input() fullData?: PokemonDetailsData;
   @Output() onSelected = new EventEmitter<string>();
 
-  id: string = ''; //Número del pokemon en la pokedex. No viene directamente como dato del EP sino que hay que extraerlo de la url
-  detailsData: any = []; //Datos del pokemon
+  id: string = ''; // Número del pokemon en la pokedex. No viene directamente como dato del EP sino que hay que extraerlo de la url
+  detailsData: any = []; // Datos del pokemon
   clickSound: HTMLAudioElement = new Audio("../../../assets/Sounds/click.mp3");
 
   constructor(private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
     this.getPokemonId();
-    
   }
-
+ 
   ngAfterViewInit(){
     this.clickSound.load(); 
     this.clickSound.volume = 0.2;
   }
-
+ 
   ngOnChanges() {
     this.getPokemonId();
   }
 
-  
+  /**
+   * Extracts the Pokemon ID from the URL and retrieves the Pokemon details.
+   */
   getPokemonId() {
-    // Check if data is available and the url is not empty
     if (this.data && this.data.url !== '') {
       const url = this.data.url;
-      const id = url.split('/')[6]; // Extract the id from the url
-      this.id = id; // Assign the id to the class property
-      this.getPokemonDetails(); // Call the method to fetch the pokemon details
-    } 
-    // If fullData is available (called from the details view)
-    else if (this.fullData) {
-      // Extract the id from the species url
+      const id = url.split('/')[6];
+      this.id = id;
+      this.getPokemonDetails();
+    } else if (this.fullData) {
       this.id = this.fullData.species.url.substring(
         42,
         this.fullData.species.url.length - 1
       );
-      // Create a dummy data object with the name and an empty url
       this.data = {
         name: this.fullData.species.name,
         url: '',
       };
-      this.getPokemonDetails(); // Call the method to fetch the pokemon details
+      this.getPokemonDetails();
     }
   }
 
+  /**
+   * Retrieves the details of the Pokemon using the PokemonService.
+   */
   getPokemonDetails() {
     this.pokemonService.getById(this.id).then((res) => {
       this.detailsData = res;
     });
   }
 
+  /**
+   * Loads the click sound for the Pokemon list item.
+   */
   loadClickSound() {
     this.clickSound = new Audio();
     this.clickSound.src = "../../../assets/Sounds/click.mp3"; 
@@ -79,9 +81,10 @@ export class PokemonListItemComponent implements OnInit {
     this.clickSound.volume = 0.2; 
   }
 
+  /**
+   * Plays the click sound for the Pokemon list item.
+   */
   playClickSound() {
-       
     this.clickSound.play(); 
-    
   }
 }

@@ -17,8 +17,7 @@ export class PokemonDetailsComponent implements OnChanges {
   @Input() pokemonData?: PokemonDetailsData;
   @Input() viewDetails: boolean = false;
   @Output() switchViewDetails = new EventEmitter();
-
-  isOpen: boolean = false; 
+ 
   pokemonDescription: string = '';
   pokemonTypes: string[] = [];
   pokemonBgColor: string[] = [];
@@ -26,7 +25,7 @@ export class PokemonDetailsComponent implements OnChanges {
   constructor(private pokemonService: PokemonService) {}
   
     ngOnChanges() {
-        // Check if pokemonData is available
+        
         if (this.pokemonData) {
             // Get the description for the pokemon
             this.pokemonService.getDescription(this.pokemonData?.id).then((res) => {
@@ -35,8 +34,7 @@ export class PokemonDetailsComponent implements OnChanges {
 
             // Get the types of the pokemon
             this.pokemonTypes = this.pokemonData.types.map((type) => type.type.name);
-
-            // Check if there are any types
+           
             if (this.pokemonTypes.length > 0) {
                 // Get the background colors for each type
                 this.pokemonBgColor = this.getPokemonTypeBgColor();
